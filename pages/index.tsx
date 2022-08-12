@@ -30,7 +30,7 @@ const Home: NextPage = () => {
           +block.totalDifficulty <= +MERGE_TOTAL_DIFFICULTY &&
           +block.totalDifficulty > +defaultTotalDifficulty
         ) {
-          setLatestBlockNumber(block.number);
+          setLatestBlockNumber(`${block.number}`);
           setTotalDifficulty(`${block.totalDifficulty}`);
           predictMergeTime(web3, block).then((mergeDate) =>
             setMergeTime(mergeDate)
