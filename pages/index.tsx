@@ -42,6 +42,10 @@ const Home: NextPage = () => {
         />
         <meta name="og:image" content="https://www.totaldifficulty/card.png" />
         <meta
+          name="twitter:image:src"
+          content="https://www.totaldifficulty/card.png"
+        />
+        <meta
           name="twitter:title"
           content="Total difficulty of Ethereum until The Merge"
         />
@@ -50,7 +54,7 @@ const Home: NextPage = () => {
           name="description"
           content="Ethereum total difficulty until The Merge"
         />
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:creator" content="@reir" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
