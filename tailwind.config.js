@@ -5,7 +5,12 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        body: ["Hammersmith One", "sans-serif"],
+        numbers: ["Inconsolata", "monospace"],
+      },
+    },
   },
   plugins: [],
 };
