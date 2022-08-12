@@ -58,20 +58,6 @@ const Home: NextPage = () => {
       <main>
         <div className="container mx-auto px-4">
           <div className="flex flex-col justify-center items-center my-24">
-            <Countdown toDate={mergeTime} />
-            <div className="text-center my-4">
-              until the Merge estimated on{" "}
-              {mergeTime.toLocaleDateString(undefined, {
-                weekday: "long",
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-              })}
-            </div>
-          </div>
-          <div className="flex flex-col justify-center items-center my-24">
             <div className="text-center my-4">Ethereum total difficulty</div>
             <BigNumber className="text-gray-500 animate-pulse">
               {totalDifficulty}
@@ -80,6 +66,20 @@ const Home: NextPage = () => {
               {MERGE_TOTAL_DIFFICULTY}
             </BigNumber>
             <div className="text-center my-4">until the Merge</div>
+          </div>
+        </div>
+        <div className="flex flex-col justify-center items-center my-24">
+          <Countdown toDate={mergeTime} />
+          <div className="text-center my-4">
+            Estimated on{" "}
+            {mergeTime.toLocaleDateString(undefined, {
+              weekday: "long",
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+            })}
           </div>
         </div>
       </main>
