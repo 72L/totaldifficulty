@@ -21,6 +21,9 @@ const Home: NextPage = () => {
     <div className='h-screen font-body flex flex-col justify-between'>
       <Head>
         <title>Total difficulty of Ethereum until The Merge</title>
+        <meta name="og:title" content="Total difficulty of Ethereum until The Merge" />
+        <meta name="twitter:title" content="Total difficulty of Ethereum until The Merge" />
+
         <meta name="description" content="Ethereum total difficulty until The Merge" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:creator" content="@reir" />
