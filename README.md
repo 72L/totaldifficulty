@@ -1,6 +1,6 @@
 # Total Difficulty
 
-An Ethereum total difficulty counter.
+An Ethereum total difficulty counter. Contributions welcome!
 
 ## Getting Started
 
