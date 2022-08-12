@@ -84,13 +84,15 @@ const Home: NextPage = () => {
             <BigNumber className="text-gray-700">
               {MERGE_TOTAL_DIFFICULTY}
             </BigNumber>
-            <div className="text-center my-4">until the Merge</div>
+            <div className="text-center my-4">
+              target total difficulty at Merge
+            </div>
           </div>
         </div>
         <div className="flex flex-col justify-center items-center my-24">
           <Countdown toDate={mergeTime} />
           <div className="text-center my-4">
-            Estimated on{" "}
+            Merge estimated on{" "}
             {mergeTime.toLocaleDateString(undefined, {
               weekday: "long",
               year: "numeric",
