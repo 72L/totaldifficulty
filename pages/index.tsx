@@ -19,26 +19,28 @@ const Home: NextPage = () => {
     useState<string>(defaultBlockNumber);
   const [mergeTime, setMergeTime] = useState<Date>(defaultMergeTime);
 
-  useEffect(() => {
-    const refreshInterval = setInterval(() => {
-      const randomEndpoint =
-        RPC_ENDPOINTS[Math.floor(Math.random() * RPC_ENDPOINTS.length)];
-      const web3 = new Web3(Web3.givenProvider || randomEndpoint);
-      web3.eth.getBlock("latest").then((block) => {
-        console.log(block);
-        if (
-          +block.totalDifficulty <= +MERGE_TOTAL_DIFFICULTY &&
-          +block.totalDifficulty > +defaultTotalDifficulty
-        ) {
-          setLatestBlockNumber(`${block.number}`);
-          setTotalDifficulty(`${block.totalDifficulty}`);
-          predictMergeTime(web3, block).then((mergeDate) =>
-            setMergeTime(mergeDate)
-          );
-        }
-      });
-    }, 5000);
+  const getLatestBlock = () => {
+    const randomEndpoint =
+      RPC_ENDPOINTS[Math.floor(Math.random() * RPC_ENDPOINTS.length)];
+    const web3 = new Web3(Web3.givenProvider || randomEndpoint);
+    web3.eth.getBlock("latest").then((block) => {
+      console.log(block);
+      if (
+        +block.totalDifficulty <= +MERGE_TOTAL_DIFFICULTY &&
+        +block.totalDifficulty > +defaultTotalDifficulty
+      ) {
+        setLatestBlockNumber(`${block.number}`);
+        setTotalDifficulty(`${block.totalDifficulty}`);
+        predictMergeTime(web3, block).then((mergeDate) =>
+          setMergeTime(mergeDate)
+        );
+      }
+    });
+  };
 
+  useEffect(() => {
+    getLatestBlock();
+    const refreshInterval = setInterval(getLatestBlock, 5000);
     return () => clearInterval(refreshInterval);
   }, []);
 
