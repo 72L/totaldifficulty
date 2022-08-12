@@ -3,19 +3,29 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import Web3 from "web3";
 import BigNumber from "../components/BigNumber";
+import Countdown from "../components/Countdown";
+import { MERGE_TOTAL_DIFFICULTY } from "../utils/constants";
+import { predictMergeTime } from "../utils/predictMergeTime";
+
+const defaultMergeTime = new Date(1663216163425);
+const defaultTotalDifficulty = "56177456570298838238278";
 
 const Home: NextPage = () => {
-  const web3 = new Web3(
-    Web3.givenProvider || "https://eth-rpc.gateway.pokt.network"
+  const [totalDifficulty, setTotalDifficulty] = useState<string>(
+    defaultTotalDifficulty
   );
-  const [totalDifficulty, setTotalDifficulty] = useState(
-    "56177456570298838238278"
-  );
+  const [mergeTime, setMergeTime] = useState<Date>(defaultMergeTime);
 
   useEffect(() => {
     const refreshInterval = setInterval(() => {
+      const web3 = new Web3(
+        Web3.givenProvider || "https://eth-rpc.gateway.pokt.network"
+      );
       web3.eth.getBlock("latest").then((block) => {
         setTotalDifficulty(`${block.totalDifficulty}`);
+        predictMergeTime(web3, block).then((mergeDate) =>
+          setMergeTime(mergeDate)
+        );
       });
     }, 10000);
 
@@ -46,19 +56,30 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <div className="container mx-auto">
+        <div className="container mx-auto px-4">
           <div className="flex flex-col justify-center items-center my-24">
-            <div className="my-4">Ethereum total difficulty</div>
-            <div className="flex flex-col items-center">
-              <BigNumber className="text-gray-500 animate-pulse">
-                {totalDifficulty}
-              </BigNumber>
-              <BigNumber className="text-gray-700">
-                58750000000000000000000
-              </BigNumber>
+            <Countdown toDate={mergeTime} />
+            <div className="text-center my-4">
+              until the Merge estimated on{" "}
+              {mergeTime.toLocaleDateString(undefined, {
+                weekday: "long",
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+              })}
             </div>
-
-            <div className="my-4">until the Merge</div>
+          </div>
+          <div className="flex flex-col justify-center items-center my-24">
+            <div className="text-center my-4">Ethereum total difficulty</div>
+            <BigNumber className="text-gray-500 animate-pulse">
+              {totalDifficulty}
+            </BigNumber>
+            <BigNumber className="text-gray-700">
+              {MERGE_TOTAL_DIFFICULTY}
+            </BigNumber>
+            <div className="text-center my-4">until the Merge</div>
           </div>
         </div>
       </main>
