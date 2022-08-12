@@ -18,7 +18,7 @@ const Home: NextPage = () => {
   }, [])
 
   return (
-    <div>
+    <div className='h-screen font-body flex flex-col justify-between'>
       <Head>
         <title>Total Difficulty of Ethereum Until The Merge</title>
         <meta name="description" content="Ethereum Total Difficulty Until The Merge" />
@@ -26,9 +26,9 @@ const Home: NextPage = () => {
 
       </Head>
 
-      <main className='font-body'>
-        <div className='container mx-auto my-auto'>
-          <div className='h-screen flex flex-col justify-center items-center'>
+      <main>
+        <div className='container mx-auto'>
+          <div className='flex flex-col justify-center items-center my-24'>
             <div className='my-4'>Ethereum total difficulty</div>
             <div className='flex flex-col items-center'>
               <BigNumber className='text-gray-500 animate-pulse'>{totalDifficulty}</BigNumber>
@@ -41,7 +41,9 @@ const Home: NextPage = () => {
       </main>
 
       <footer>
-
+        <div className='flex flex-col justify-center items-center my-12'>
+          <a href='https://github.com/72L/totaldifficulty' className='text-gray-300'>Open Source</a>
+        </div>
       </footer>
     </div>
   )
