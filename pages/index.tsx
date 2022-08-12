@@ -8,12 +8,15 @@ import { MERGE_TOTAL_DIFFICULTY, RPC_ENDPOINTS } from "../utils/constants";
 import { predictMergeTime } from "../utils/predictMergeTime";
 
 const defaultMergeTime = new Date(1663216163425);
-const defaultTotalDifficulty = "56177456570298838238278";
+const defaultTotalDifficulty = "56195695917284349566861";
+const defaultBlockNumber = "15327562";
 
 const Home: NextPage = () => {
   const [totalDifficulty, setTotalDifficulty] = useState<string>(
     defaultTotalDifficulty
   );
+  const [latestBlockNumber, setLatestBlockNumber] =
+    useState<string>(defaultBlockNumber);
   const [mergeTime, setMergeTime] = useState<Date>(defaultMergeTime);
 
   useEffect(() => {
@@ -22,10 +25,12 @@ const Home: NextPage = () => {
         RPC_ENDPOINTS[Math.floor(Math.random() * RPC_ENDPOINTS.length)];
       const web3 = new Web3(Web3.givenProvider || randomEndpoint);
       web3.eth.getBlock("latest").then((block) => {
+        console.log(block);
         if (
           +block.totalDifficulty <= +MERGE_TOTAL_DIFFICULTY &&
           +block.totalDifficulty > +defaultTotalDifficulty
         ) {
+          setLatestBlockNumber(block.number);
           setTotalDifficulty(`${block.totalDifficulty}`);
           predictMergeTime(web3, block).then((mergeDate) =>
             setMergeTime(mergeDate)
@@ -77,7 +82,9 @@ const Home: NextPage = () => {
       <main>
         <div className="container mx-auto px-4">
           <div className="flex flex-col justify-center items-center my-24">
-            <div className="text-center my-4">Ethereum total difficulty</div>
+            <div className="text-center my-4">
+              Ethereum total difficulty at block {latestBlockNumber}
+            </div>
             <BigNumber className="text-gray-500 animate-pulse">
               {totalDifficulty}
             </BigNumber>
