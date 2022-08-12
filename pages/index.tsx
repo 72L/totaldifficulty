@@ -92,7 +92,7 @@ const Home: NextPage = () => {
               {MERGE_TOTAL_DIFFICULTY}
             </BigNumber>
             <div className="text-center my-4">
-              target total difficulty at Merge
+              terminal total difficulty at Merge
             </div>
           </div>
         </div>
