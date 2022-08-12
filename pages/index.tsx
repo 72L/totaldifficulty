@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Web3 from "web3";
 import BigNumber from "../components/BigNumber";
 import Countdown from "../components/Countdown";
-import { MERGE_TOTAL_DIFFICULTY } from "../utils/constants";
+import { MERGE_TOTAL_DIFFICULTY, RPC_ENDPOINTS } from "../utils/constants";
 import { predictMergeTime } from "../utils/predictMergeTime";
 
 const defaultMergeTime = new Date(1663216163425);
@@ -18,16 +18,21 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     const refreshInterval = setInterval(() => {
-      const web3 = new Web3(
-        Web3.givenProvider || "https://eth-rpc.gateway.pokt.network"
-      );
+      const randomEndpoint =
+        RPC_ENDPOINTS[Math.floor(Math.random() * RPC_ENDPOINTS.length)];
+      const web3 = new Web3(Web3.givenProvider || randomEndpoint);
       web3.eth.getBlock("latest").then((block) => {
-        setTotalDifficulty(`${block.totalDifficulty}`);
-        predictMergeTime(web3, block).then((mergeDate) =>
-          setMergeTime(mergeDate)
-        );
+        if (
+          +block.totalDifficulty <= +MERGE_TOTAL_DIFFICULTY &&
+          +block.totalDifficulty > +defaultTotalDifficulty
+        ) {
+          setTotalDifficulty(`${block.totalDifficulty}`);
+          predictMergeTime(web3, block).then((mergeDate) =>
+            setMergeTime(mergeDate)
+          );
+        }
       });
-    }, 10000);
+    }, 5000);
 
     return () => clearInterval(refreshInterval);
   }, []);
