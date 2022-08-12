@@ -22,6 +22,7 @@ const Home: NextPage = () => {
       <Head>
         <title>Total difficulty of Ethereum until The Merge</title>
         <meta name="og:title" content="Total difficulty of Ethereum until The Merge" />
+        <meta name="og:image" content="https://www.totaldifficulty/card.png" />
         <meta name="twitter:title" content="Total difficulty of Ethereum until The Merge" />
 
         <meta name="description" content="Ethereum total difficulty until The Merge" />
