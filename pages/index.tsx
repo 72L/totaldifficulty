@@ -112,7 +112,8 @@ const Home: NextPage = () => {
               day: "numeric",
               hour: "numeric",
               minute: "numeric",
-            })}
+            })}{" "}
+            (your local time)
           </div>
         </div>
       </main>
